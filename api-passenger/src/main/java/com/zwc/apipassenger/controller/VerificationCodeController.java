@@ -1,9 +1,9 @@
 package com.zwc.apipassenger.controller;
 
 
-import com.zwc.apipassenger.request.VerificationCodeDTO;
 import com.zwc.apipassenger.service.VerificationCodeService;
 import com.zwc.internalcommon.dto.ResponseResult;
+import com.zwc.internalcommon.request.VerificationCodeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

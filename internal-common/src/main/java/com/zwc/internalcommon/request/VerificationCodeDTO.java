@@ -1,4 +1,4 @@
-package com.zwc.apipassenger.request;
+package com.zwc.internalcommon.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
