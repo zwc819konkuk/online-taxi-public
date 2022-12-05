@@ -1,14 +1,16 @@
 package com.zwc.apipassenger.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class VerificationCodeDTO {
 
     private String passengerPhone;
 
-    public String getPassengerPhone() {
-        return passengerPhone;
-    }
+    private String verificationCode;
 
-    public void setPassengerPhone(String passengerPhone) {
-        this.passengerPhone = passengerPhone;
-    }
 }
