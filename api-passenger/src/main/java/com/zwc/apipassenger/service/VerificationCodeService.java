@@ -3,10 +3,12 @@ package com.zwc.apipassenger.service;
 import com.zwc.apipassenger.remote.ServicePassengerUserClient;
 import com.zwc.apipassenger.remote.ServiceVerificationcodeClient;
 import com.zwc.internalcommon.constant.CommonStatusEnum;
+import com.zwc.internalcommon.constant.IdentityConstant;
 import com.zwc.internalcommon.dto.ResponseResult;
 import com.zwc.internalcommon.request.VerificationCodeDTO;
 import com.zwc.internalcommon.response.NumberCodeResponse;
 import com.zwc.internalcommon.response.TokenResponse;
+import com.zwc.internalcommon.utils.JwtUtils;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,11 +96,12 @@ public class VerificationCodeService {
         VerificationCodeDTO verificationCodeDTO = new VerificationCodeDTO();
         verificationCodeDTO.setPassengerPhone(passengerPhone);
         servicePassengerUserClient.loginOrRegister(verificationCodeDTO);
-        //颁发令牌
+        //颁发令牌 这里的身份标识应该用常量
         System.out.println("颁发令牌");
+        String token= JwtUtils.generatorToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
         //响应
         TokenResponse tokenResponse = new TokenResponse();
-        tokenResponse.setToken("token value");
+        tokenResponse.setToken(token);
         return ResponseResult.success(tokenResponse);
     }
 }
