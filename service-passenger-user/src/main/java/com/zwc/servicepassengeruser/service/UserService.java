@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +28,22 @@ public class UserService {
 
 
         //判断用户信息是否存在
-        //如果不存在插入用户
+        if (passengerUsers.size()==0){
+            //如果不存在插入用户
+            PassengerUser passengerUser = new PassengerUser();
+            passengerUser.setPassengerName("张三");
+            passengerUser.setPassengerGender((byte) 0);
+            passengerUser.setPassengerPhone(passengerPhone);
+            passengerUser.setState((byte) 0);
+
+            LocalDateTime now = LocalDateTime.now();
+            passengerUser.setGmtCreate(now);
+            passengerUser.setGmtModified(now);
+
+            passengerUserMapper.insert(passengerUser);
+
+        }
         return ResponseResult.success();
+
     }
 }
