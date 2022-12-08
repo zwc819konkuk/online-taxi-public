@@ -1,8 +1,10 @@
 package com.zwc.apipassenger.service;
 
+import com.zwc.apipassenger.remote.ServicePassengerUserClient;
 import com.zwc.apipassenger.remote.ServiceVerificationcodeClient;
 import com.zwc.internalcommon.constant.CommonStatusEnum;
 import com.zwc.internalcommon.dto.ResponseResult;
+import com.zwc.internalcommon.request.VerificationCodeDTO;
 import com.zwc.internalcommon.response.NumberCodeResponse;
 import com.zwc.internalcommon.response.TokenResponse;
 import net.sf.json.JSONObject;
@@ -17,6 +19,8 @@ import java.util.concurrent.TimeUnit;
 public class VerificationCodeService {
     @Autowired
     private ServiceVerificationcodeClient serviceVerificationcodeClient;
+    @Autowired
+    private ServicePassengerUserClient servicePassengerUserClient;
 
     //乘客验证码的前缀
     private String verificationCodePrefix = "passenger-verification-code-";
@@ -87,6 +91,9 @@ public class VerificationCodeService {
         }
         //判断原来是否有用户，并进行对应处理
         System.out.println("判断原来是否有用户，并进行对应处理");
+        VerificationCodeDTO verificationCodeDTO = new VerificationCodeDTO();
+        verificationCodeDTO.setPassengerPhone(passengerPhone);
+        servicePassengerUserClient.loginOrRegister(verificationCodeDTO);
         //颁发令牌
         System.out.println("颁发令牌");
         //响应
