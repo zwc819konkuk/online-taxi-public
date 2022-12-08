@@ -16,8 +16,8 @@ public class TokenController {
     @PostMapping("/token-refresh")
     public ResponseResult refreshToken(@RequestBody TokenResponse tokenResponse){
 
-        tokenService.refreshToken(tokenResponse.getRefreshToken());
+        ResponseResult responseResult = tokenService.refreshToken(tokenResponse.getRefreshToken());
 
-        return null;
+        return responseResult;
     }
 }
