@@ -6,3 +6,9 @@ spring:
     url: jdbc:mysql://123.57.79.37:3306/service-passenger-user?characterEncoding=utf-8&serverTimezone=GMT%2B8
     username: root
     password: root
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 123.57.79.37:8848
+  application:
+    name: service-passenger-user
