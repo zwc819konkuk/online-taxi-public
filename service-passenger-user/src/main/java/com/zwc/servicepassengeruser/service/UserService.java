@@ -1,17 +1,14 @@
 package com.zwc.servicepassengeruser.service;
 
 import com.zwc.internalcommon.dto.ResponseResult;
-import com.zwc.internalcommon.request.VerificationCodeDTO;
-import com.zwc.servicepassengeruser.dto.PassengerUser;
+import com.zwc.internalcommon.dto.PassengerUser;
 import com.zwc.servicepassengeruser.mapper.PassengerUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class UserService {
