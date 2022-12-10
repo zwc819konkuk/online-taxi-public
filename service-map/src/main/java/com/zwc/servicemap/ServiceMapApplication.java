@@ -1,11 +1,11 @@
-package com.zwc.serviceprice;
+package com.zwc.servicemap;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ServicePriceApplication {
+public class ServiceMapApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ServicePriceApplication.class);
+        SpringApplication.run(ServiceMapApplication.class);
     }
 }
