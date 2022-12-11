@@ -8,8 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="internal-common" />
-        <module name="service-price" />
         <module name="service-map" />
+        <module name="service-price" />
         <module name="api-passenger" />
         <module name="service-passenger-user" />
         <module name="service-verificationcode" />
