@@ -88,9 +88,10 @@ public class DicDistrictService {
         }
 
 
-        //插入数据库
-        return ResponseResult.success();
+
+        return ResponseResult.success("");
     }
+    //插入数据库
     public void insertDicDistrict(String addressCode, String addressName,String level ,String parentAddressCode){
         // 数据库对象
         DicDistrict district = new DicDistrict();
