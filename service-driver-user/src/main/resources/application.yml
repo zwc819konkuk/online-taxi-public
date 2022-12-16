@@ -1,6 +1,10 @@
 server:
   port: 8086
 spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 123.57.79.37:8848
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://123.57.79.37:3306/service-driver-user?characterEncoding=utf-8&serverTimezone=GMT%2B8
