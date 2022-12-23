@@ -1,6 +1,7 @@
 package com.zwc.servicedriveruser.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zwc.internalcommon.dto.Car;
 import org.springframework.stereotype.Repository;
 
 /**
