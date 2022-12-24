@@ -1,5 +1,6 @@
 package com.zwc.apiboss.remote;
 
+import com.zwc.internalcommon.dto.Car;
 import com.zwc.internalcommon.dto.DriverUser;
 import com.zwc.internalcommon.dto.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,4 +16,6 @@ public interface ServiceDriverUserClient {
 
     @RequestMapping(method = RequestMethod.PUT,value = "/user")
     public ResponseResult updateDriverUser(@RequestBody DriverUser driverUser);
+    @RequestMapping(method = RequestMethod.POST,value = "/car")
+    public ResponseResult addCar(@RequestBody Car car);
 }

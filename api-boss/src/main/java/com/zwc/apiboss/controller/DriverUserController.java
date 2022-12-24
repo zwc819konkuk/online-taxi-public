@@ -1,6 +1,8 @@
 package com.zwc.apiboss.controller;
 
+import com.zwc.apiboss.service.CarService;
 import com.zwc.apiboss.service.DriverUserService;
+import com.zwc.internalcommon.dto.Car;
 import com.zwc.internalcommon.dto.DriverUser;
 import com.zwc.internalcommon.dto.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +31,18 @@ public class DriverUserController {
     @PutMapping("/driver-user")
     public ResponseResult updateDriverUser(@RequestBody DriverUser driverUser){
         return driverUserService.updateDriverUser(driverUser);
+    }
+
+    @Autowired
+    CarService carService;
+
+    /**
+     * 添加车辆
+     * @param car
+     * @return
+     */
+    @PostMapping("/car")
+    public ResponseResult car(@RequestBody Car car){
+        return carService.addCar(car);
     }
 }
