@@ -12,7 +12,7 @@ public class CarService {
     @Autowired
     private ServiceDriverUserClient serviceDriverUserClient;
 
-    public ResponseResult addCar(Car car){
+    public ResponseResult addCar(Car car) {
         return serviceDriverUserClient.addCar(car);
     }
 }
