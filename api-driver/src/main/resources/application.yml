@@ -7,3 +7,7 @@ spring:
         server-addr: 123.57.79.37:8848
   application:
     name: api-driver
+  redis:
+    host: 123.57.79.37
+    port: 6379
+    database: 0

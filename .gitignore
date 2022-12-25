@@ -3,3 +3,5 @@ service-price/target/
 service-driver-user/target/
 api-boss/target/
 api-driver/target/
+api-passenger/target/
+service-passenger-user/service-passenger-user.iml

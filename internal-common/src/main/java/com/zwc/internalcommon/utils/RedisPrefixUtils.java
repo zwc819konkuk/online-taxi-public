@@ -2,18 +2,19 @@ package com.zwc.internalcommon.utils;
 
 public class RedisPrefixUtils {
     //乘客验证码的前缀
-    public static String verificationCodePrefix = "passenger-verification-code-";
+    public static String verificationCodePrefix = "verification-code-";
 
     //token存储的前缀
     public static String tokenPrefix = "token-";
     /**
      * 根据手机号生成key
      *
-     * @param passengerPhone
+     * @param Phone
+     * @param identity
      * @return
      */
-    public static String generatorKeyByPhone(String passengerPhone) {
-        return verificationCodePrefix + passengerPhone;
+    public static String generatorKeyByPhone(String Phone,String identity) {
+        return verificationCodePrefix +identity+"-"+ Phone;
     }
 
     /**
