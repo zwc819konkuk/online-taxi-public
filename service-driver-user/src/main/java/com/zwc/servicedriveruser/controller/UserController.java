@@ -1,5 +1,6 @@
 package com.zwc.servicedriveruser.controller;
 
+import com.zwc.internalcommon.constant.DriverCarConstants;
 import com.zwc.internalcommon.dto.DriverUser;
 import com.zwc.internalcommon.dto.ResponseResult;
 import com.zwc.internalcommon.response.DriverUserExistsResponse;
@@ -38,15 +39,15 @@ public class UserController {
         return driverUserService.updateDriverUser(driverUser);
     }
     @GetMapping("/check-driver/{driverPhone}")
-    public ResponseResult getUser(@PathVariable("driverPhone") String driverPhone){
+    public ResponseResult<DriverUserExistsResponse> getUser(@PathVariable("driverPhone") String driverPhone){
         ResponseResult<DriverUser> driverUserByPhone = driverUserService.getDriverUserByPhone(driverPhone);
         DriverUser byPhoneData = driverUserByPhone.getData();
 
         DriverUserExistsResponse response = new DriverUserExistsResponse();
 
-        int isExist = 1;
+        int isExist = DriverCarConstants.DRIVER_EXIST;
         if (byPhoneData == null){
-            isExist = 0;
+            isExist = DriverCarConstants.DRIVER_NOT_EXIST;
             response.setIsExist(isExist);
             response.setDriverPhone(driverPhone);
         }else {
