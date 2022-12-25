@@ -5,3 +5,4 @@ api-boss/target/
 api-driver/target/
 api-passenger/target/
 service-passenger-user/service-passenger-user.iml
+service-map/target/
