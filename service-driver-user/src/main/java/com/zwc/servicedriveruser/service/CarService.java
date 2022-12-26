@@ -3,6 +3,7 @@ package com.zwc.servicedriveruser.service;
 import com.zwc.internalcommon.dto.Car;
 import com.zwc.internalcommon.dto.ResponseResult;
 import com.zwc.internalcommon.response.TerminalResponse;
+import com.zwc.internalcommon.response.TrackResponse;
 import com.zwc.servicedriveruser.mapper.CarMapper;
 import com.zwc.servicedriveruser.remote.ServiceMapClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class CarService {
         car.setTid(tid);
 
         //获得此车辆轨迹id trid
+        ResponseResult<TrackResponse> trackResponseResponseResult = serviceMapClient.addrTrack(tid);
+        String trid = trackResponseResponseResult.getData().getTrid();
+        String trname = trackResponseResponseResult.getData().getTrname();
+        car.setTrid(trid);
+        car.setTrname(trname);
 
         carMapper.insert(car);
         return ResponseResult.success("");
