@@ -22,7 +22,7 @@ public class TerminalClient {
     @Autowired
     private RestTemplate restTemplate;
     
-    public ResponseResult<TerminalResponse> add (String name){
+    public ResponseResult<TerminalResponse> add (String name,String desc){
 
         //拼装请求的url
         StringBuilder url = new StringBuilder();
@@ -33,9 +33,11 @@ public class TerminalClient {
         url.append("sid="+amapSid);
         url.append("&");
         url.append("name="+name);
-
+        url.append("&");
+        url.append("desc="+desc);
+        System.out.println(url.toString());
         ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity(url.toString(), null, String.class);
-
+        System.out.println(stringResponseEntity.getBody());
         /**
          * {
          *     "data": {
