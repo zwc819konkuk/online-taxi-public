@@ -8,13 +8,18 @@ import com.zwc.servicedriveruser.mapper.CarMapper;
 import com.zwc.servicedriveruser.remote.ServiceMapClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.events.Event;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class CarService {
     @Autowired
     private CarMapper carMapper;
+
 
     @Autowired
     private ServiceMapClient serviceMapClient;
@@ -38,5 +43,12 @@ public class CarService {
 
         carMapper.insert(car);
         return ResponseResult.success("");
+    }
+
+    public ResponseResult<Car> getCarById(Long carId){
+        Map<String ,Object> map = new HashMap<>();
+        map.put("id", carId);
+        List<Car> cars = carMapper.selectByMap(map);
+        return ResponseResult.success(cars.get(0));
     }
 }

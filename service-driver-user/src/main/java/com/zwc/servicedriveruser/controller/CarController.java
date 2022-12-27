@@ -5,12 +5,9 @@ import com.zwc.internalcommon.dto.Car;
 import com.zwc.internalcommon.dto.ResponseResult;
 import com.zwc.servicedriveruser.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -30,5 +27,10 @@ public class CarController {
     public ResponseResult addCar(@RequestBody Car car) {
 
         return carService.addCar(car);
+    }
+
+    @GetMapping("/car")
+    public ResponseResult<Car> getCarById(Long carId){
+        return carService.getCarById(carId);
     }
 }
