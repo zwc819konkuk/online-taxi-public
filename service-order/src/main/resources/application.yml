@@ -1,0 +1,9 @@
+server:
+  port: 8089
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 123.57.79.37:8848
+  application:
+    name: service-order
