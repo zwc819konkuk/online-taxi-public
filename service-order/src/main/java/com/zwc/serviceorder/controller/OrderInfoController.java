@@ -22,16 +22,21 @@ import org.springframework.stereotype.Controller;
 @RequestMapping("/order")
 @Slf4j
 public class OrderInfoController {
-    @PostMapping("/add")
-    public ResponseResult add(@RequestBody OrderRequest orderRequest){
-
-        log.info("service-order"+orderRequest.getAddress());
-
-        return null;
-    }
 
     @Autowired
     private OrderInfoService orderInfoService;
+
+    /**
+     * 创建订单
+     * @param orderRequest
+     * @return
+     */
+    @PostMapping("/add")
+    public ResponseResult add(@RequestBody OrderRequest orderRequest){
+
+        return orderInfoService.add(orderRequest);
+    }
+
 
     @GetMapping("/test")
     public String testMapper(){
