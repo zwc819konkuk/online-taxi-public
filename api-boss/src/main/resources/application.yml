@@ -4,6 +4,6 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 123.57.79.37:8848
+        server-addr: localhost:8848
   application:
     name: api-boss
