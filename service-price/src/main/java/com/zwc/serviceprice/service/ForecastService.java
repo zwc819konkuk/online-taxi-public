@@ -29,7 +29,8 @@ public class ForecastService {
     PriceRuleMapper priceRuleMapper;
 
 
-    public ResponseResult forecastPrice(String depLongitude, String depLatitude, String destLongitude, String destLatitude) {
+    public ResponseResult forecastPrice(String depLongitude, String depLatitude, String destLongitude,
+                                        String destLatitude,String cityCode,String vehicleType) {
 
         log.info("出发地经度"+depLongitude);
         log.info("出发地纬度"+depLatitude);
@@ -50,8 +51,8 @@ public class ForecastService {
 
         log.info("读取计价规则");
         Map<String,Object> queryMap = new HashMap<>();
-        queryMap.put("city_code","110000");
-        queryMap.put("vehicle_type","1");
+        queryMap.put("city_code",cityCode);
+        queryMap.put("vehicle_type",vehicleType);
         List<PriceRule> priceRules = priceRuleMapper.selectByMap(queryMap);
         if (priceRules.size()==0){
             return ResponseResult.fail(CommonStatusEnum.PRICE_RULE_EMPTY.getCode(),CommonStatusEnum.PRICE_RULE_EMPTY.getValue());
@@ -65,6 +66,8 @@ public class ForecastService {
 
         ForecastPriceResponse forecastPriceResponse = new ForecastPriceResponse();
         forecastPriceResponse.setPrice(price);
+        forecastPriceResponse.setCityCode(cityCode);
+        forecastPriceResponse.setVehicleType(vehicleType);
 
         return ResponseResult.success(forecastPriceResponse);
     }
