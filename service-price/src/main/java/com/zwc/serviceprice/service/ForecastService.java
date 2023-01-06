@@ -1,5 +1,6 @@
 package com.zwc.serviceprice.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zwc.internalcommon.constant.CommonStatusEnum;
 import com.zwc.internalcommon.dto.PriceRule;
 import com.zwc.internalcommon.dto.ResponseResult;
@@ -50,10 +51,13 @@ public class ForecastService {
         System.out.println("时长"+duration);
 
         log.info("读取计价规则");
-        Map<String,Object> queryMap = new HashMap<>();
-        queryMap.put("city_code",cityCode);
-        queryMap.put("vehicle_type",vehicleType);
-        List<PriceRule> priceRules = priceRuleMapper.selectByMap(queryMap);
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("city_code",cityCode);
+        queryWrapper.eq("vehicle_type",vehicleType);
+        queryWrapper.orderByDesc("fare_version");
+
+        List<PriceRule> priceRules = priceRuleMapper.selectList(queryWrapper);
         if (priceRules.size()==0){
             return ResponseResult.fail(CommonStatusEnum.PRICE_RULE_EMPTY.getCode(),CommonStatusEnum.PRICE_RULE_EMPTY.getValue());
         }
