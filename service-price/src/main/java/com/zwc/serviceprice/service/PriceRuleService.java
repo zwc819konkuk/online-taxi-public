@@ -8,6 +8,8 @@ import com.zwc.internalcommon.dto.ResponseResult;
 import com.zwc.serviceprice.mapper.PriceRuleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
@@ -96,5 +98,38 @@ public class PriceRuleService {
         priceRuleMapper.insert(priceRule);
 
         return ResponseResult.success();
+    }
+
+    public ResponseResult<PriceRule> getNewestVersion(@RequestParam String fareType){
+        QueryWrapper<PriceRule> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("fare_type",fareType);
+
+        queryWrapper.orderByDesc("fare_version");
+
+        List<PriceRule> priceRules = priceRuleMapper.selectList(queryWrapper);
+
+        if (priceRules.size()>0){
+            return ResponseResult.success(priceRules.get(0));
+        }else {
+            return ResponseResult.fail(CommonStatusEnum.PRICE_RULE_EMPTY.getCode(),CommonStatusEnum.PRICE_RULE_EMPTY.getValue());
+        }
+
+
+    }
+
+    public ResponseResult<Boolean> isNew(String fareType,int fareVersion){
+        ResponseResult<PriceRule> newestVersion = getNewestVersion(fareType);
+        if (newestVersion.getCode() == CommonStatusEnum.PRICE_RULE_EMPTY.getCode()){
+            return ResponseResult.fail(CommonStatusEnum.PRICE_RULE_EMPTY.getCode(),CommonStatusEnum.PRICE_RULE_EMPTY.getValue());
+        }
+
+        PriceRule priceRule = newestVersion.getData();
+        Integer fareVersionDB = priceRule.getFareVersion();
+        if (fareVersionDB > fareVersion){
+            return ResponseResult.success(false);
+        }else {
+            return ResponseResult.success(true);
+        }
+
     }
 }
