@@ -1,6 +1,7 @@
 package com.zwc.serviceorder.controller;
 
 
+import com.zwc.internalcommon.constant.HeaderParamConstants;
 import com.zwc.internalcommon.dto.ResponseResult;
 import com.zwc.internalcommon.request.OrderRequest;
 import com.zwc.serviceorder.service.OrderInfoService;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -32,8 +35,10 @@ public class OrderInfoController {
      * @return
      */
     @PostMapping("/add")
-    public ResponseResult add(@RequestBody OrderRequest orderRequest){
-
+    public ResponseResult add(@RequestBody OrderRequest orderRequest, HttpServletRequest httpServletRequest){
+        //通过header获取devicecode
+//        String deviceCode = httpServletRequest.getHeader(HeaderParamConstants.DEVICE_CODE);
+//        orderRequest.setDeviceCode(deviceCode);
         return orderInfoService.add(orderRequest);
     }
 

@@ -48,6 +48,7 @@ public enum CommonStatusEnum {
      * 订单：1600-1699
      */
      ORDER_GOING_ON(1600,"有正在进行的订单"),
+    DEVICE_IS_BALCK(1601,"该设备超过下单次数"),
 
     /**
      * 成功
