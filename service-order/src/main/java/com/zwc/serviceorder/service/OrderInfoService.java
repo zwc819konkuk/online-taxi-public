@@ -1,5 +1,7 @@
 package com.zwc.serviceorder.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zwc.internalcommon.constant.CommonStatusEnum;
 import com.zwc.internalcommon.constant.OrderConstants;
 import com.zwc.internalcommon.dto.OrderInfo;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -43,6 +46,10 @@ public class OrderInfoService  {
         if (!(result.getData())){
             return ResponseResult.fail(CommonStatusEnum.PRICE_RULE_CHANGED.getCode(),CommonStatusEnum.PRICE_RULE_CHANGED.getValue());
         }
+        //判断有正在运行的订单不允许下单
+        if (isOrderGoingOn(orderRequest.getPassengerId()) > 0){
+            return ResponseResult.fail(CommonStatusEnum.ORDER_GOING_ON.getCode(),CommonStatusEnum.ORDER_GOING_ON.getValue());
+        }
 
         //创建订单
         OrderInfo orderInfo = new OrderInfo();
@@ -58,5 +65,26 @@ public class OrderInfoService  {
         orderInfoMapper.insert(orderInfo);
 
         return ResponseResult.success();
+    }
+
+    /**
+     * 判断有正在运行的订单不允许下单
+     * @param passengerId
+     * @return
+     */
+    private int isOrderGoingOn(Long passengerId){
+        QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("passenger_id",passengerId);
+        queryWrapper.and(wrapper->wrapper.eq("order_status",OrderConstants.ORDER_START)
+                .or().eq("order_status",OrderConstants.DRIVER_RECEIVE_ORDER)
+                .or().eq("order_status",OrderConstants.DRIVER_TO_PICK_UP_PASSENGER)
+                .or().eq("order_status",OrderConstants.DRIVER_ARRIVED_DEPATURE)
+                .or().eq("order_status",OrderConstants.PICK_UP_PASSENGER)
+                .or().eq("order_status",OrderConstants.PASSENGER_GETOFF)
+                .or().eq("order_status",OrderConstants.TO_START_PAY)
+        );
+
+        Integer validOrderNumber = orderInfoMapper.selectCount(queryWrapper);
+       return validOrderNumber;
     }
 }
