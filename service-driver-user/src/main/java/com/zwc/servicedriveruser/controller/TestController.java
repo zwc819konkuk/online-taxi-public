@@ -17,4 +17,13 @@ public class TestController {
     public ResponseResult test(){
         return driverUserService.testGetDriveruser();
     }
+
+    @Autowired
+    private DriverUserMapper driverUserMapper;
+    //测试xml
+    @GetMapping("/test-xml01")
+    public int testXml(String arg){
+        int i = driverUserMapper.select1("1");
+        return i;
+    }
 }
