@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zwc.internalcommon.constant.CommonStatusEnum;
 import com.zwc.internalcommon.constant.OrderConstants;
 import com.zwc.internalcommon.dto.OrderInfo;
+import com.zwc.internalcommon.dto.PriceRule;
 import com.zwc.internalcommon.dto.ResponseResult;
 import com.zwc.internalcommon.request.OrderRequest;
 import com.zwc.internalcommon.utils.RedisPrefixUtils;
@@ -54,14 +55,16 @@ public class OrderInfoService {
         }
 
         //2. 判断下单的设备是否是黑名单设备
-        String deviceCode = orderRequest.getDeviceCode();
-        //生成key
-        String deviceCodeKey = RedisPrefixUtils.blackDeviceCodePrefix + deviceCode;
-        if (isBlackDevice(deviceCodeKey)){
+        if (isBlackDevice(orderRequest)){
             return ResponseResult.fail(CommonStatusEnum.DEVICE_IS_BALCK.getCode(), CommonStatusEnum.DEVICE_IS_BALCK.getValue());
         }
 
-        //3. 判断有正在运行的订单不允许下单
+        //3. 判断下单的城市和计价规则是否正常
+        if (!isPriceRuleExists(orderRequest)){
+            return ResponseResult.fail(CommonStatusEnum.CITY_NO_SERVICE.getCode(),CommonStatusEnum.CITY_NO_SERVICE.getValue());
+        }
+
+        //4. 判断有正在运行的订单不允许下单
         if (isOrderGoingOn(orderRequest.getPassengerId()) > 0) {
             return ResponseResult.fail(CommonStatusEnum.ORDER_GOING_ON.getCode(), CommonStatusEnum.ORDER_GOING_ON.getValue());
         }
@@ -104,12 +107,29 @@ public class OrderInfoService {
         return validOrderNumber;
     }
 
+    private boolean isPriceRuleExists(OrderRequest orderRequest){
+        String fareType = orderRequest.getFareType();
+        int index = fareType.indexOf("$");
+        String cityCode = fareType.substring(0, index);
+        String vehicleType = fareType.substring(index + 1);
+
+        PriceRule priceRule = new PriceRule();
+        priceRule.setCityCode(cityCode);
+        priceRule.setVehicleType(vehicleType);
+
+        ResponseResult<Boolean> booleanResponseResult = servicePriceClient.ifPriceExists(priceRule);
+        return booleanResponseResult.getData();
+    }
+
     /**
      * 判断是否为黑名单的设备
-     * @param deviceCodeKey
+     * @param orderRequest
      * @return
      */
-    private boolean isBlackDevice(String deviceCodeKey){
+    private boolean isBlackDevice(OrderRequest orderRequest){
+        String deviceCode = orderRequest.getDeviceCode();
+        //生成key
+        String deviceCodeKey = RedisPrefixUtils.blackDeviceCodePrefix + deviceCode;
         //设置key[设置时间的时候要保持原子性]，看原来有没有key
         Boolean hasKey = stringRedisTemplate.hasKey(deviceCodeKey);
         if (hasKey) {

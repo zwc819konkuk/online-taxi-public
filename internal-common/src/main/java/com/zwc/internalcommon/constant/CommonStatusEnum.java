@@ -9,46 +9,47 @@ public enum CommonStatusEnum {
     /**
      * 验证码错误提示：1000-1099
      */
-    VERIFICATION_CODE_ERROR(1099,"验证码不正确"),
+    VERIFICATION_CODE_ERROR(1099, "验证码不正确"),
 
     /**
      * token类提示，1100-1199
      */
-    TOKEN_ERROR(1199,"TOKEN错误"),
+    TOKEN_ERROR(1199, "TOKEN错误"),
 
     /**
      * 用户提示：1200-1299
      */
-    USER_NOT_EXIST(1022,"当前用户不存在"),
+    USER_NOT_EXIST(1022, "当前用户不存在"),
 
     /**
      * 计价规格不存在:1300-1399
      */
-    PRICE_RULE_EMPTY(1300,"计价规格不存在"),
-    PRICE_RULE_EXIST(1301,"计价规则已经存在，不允许添加"),
-    PRICE_RULE_NOT_EDIT(1302,"计价规则没有变化"),
-    PRICE_RULE_CHANGED(1303,"计价规则有变化"),
+    PRICE_RULE_EMPTY(1300, "计价规格不存在"),
+    PRICE_RULE_EXIST(1301, "计价规则已经存在，不允许添加"),
+    PRICE_RULE_NOT_EDIT(1302, "计价规则没有变化"),
+    PRICE_RULE_CHANGED(1303, "计价规则有变化"),
 
 
     /**
      * 请求地图错误:1400-1499
      */
-    MAP_DISTRICT_ERROR(1400,"请求地图错误"),
+    MAP_DISTRICT_ERROR(1400, "请求地图错误"),
 
     /**
      * 司机和车辆绑定：1500-1599
      */
-    DRIVER_CAR_BIND_NOT_EXISTS(1500,"司机和车辆绑定关系不存在"),
-    DRIVER_NOT_EXISTS(1501,"司机不存在"),
-    DRIVER_CAR_BIND_EXISTS(1502,"司机和车辆绑定关系存在,请勿重复绑定"),
-    DRIVER_BIND_EXISTS(1503,"司机已经被绑定了,请勿重复绑定"),
-    CAR_BIND_EXISTS(1504,"车辆被绑定了,请勿重复绑定"),
+    DRIVER_CAR_BIND_NOT_EXISTS(1500, "司机和车辆绑定关系不存在"),
+    DRIVER_NOT_EXISTS(1501, "司机不存在"),
+    DRIVER_CAR_BIND_EXISTS(1502, "司机和车辆绑定关系存在,请勿重复绑定"),
+    DRIVER_BIND_EXISTS(1503, "司机已经被绑定了,请勿重复绑定"),
+    CAR_BIND_EXISTS(1504, "车辆被绑定了,请勿重复绑定"),
 
     /**
      * 订单：1600-1699
      */
-     ORDER_GOING_ON(1600,"有正在进行的订单"),
-    DEVICE_IS_BALCK(1601,"该设备超过下单次数"),
+    ORDER_GOING_ON(1600, "有正在进行的订单"),
+    DEVICE_IS_BALCK(1601, "该设备超过下单次数"),
+    CITY_NO_SERVICE(1602, "当前城市不提供叫车服务"),
 
     /**
      * 成功
