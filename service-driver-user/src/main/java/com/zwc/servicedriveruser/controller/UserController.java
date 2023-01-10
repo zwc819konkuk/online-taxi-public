@@ -38,6 +38,12 @@ public class UserController {
     public ResponseResult updateUser(@RequestBody DriverUser driverUser){
         return driverUserService.updateDriverUser(driverUser);
     }
+
+    /**
+     * 查询司机
+     * @param driverPhone
+     * @return
+     */
     @GetMapping("/check-driver/{driverPhone}")
     public ResponseResult<DriverUserExistsResponse> getUser(@PathVariable("driverPhone") String driverPhone){
         ResponseResult<DriverUser> driverUserByPhone = driverUserService.getDriverUserByPhone(driverPhone);
@@ -57,4 +63,6 @@ public class UserController {
 
         return ResponseResult.success(response);
     }
+
+
 }

@@ -21,9 +21,9 @@ public class TestController {
     @Autowired
     private DriverUserMapper driverUserMapper;
     //测试xml
-    @GetMapping("/test-xml01")
-    public int testXml(String arg){
-        int i = driverUserMapper.select1("1");
+    @GetMapping("/test-xml")
+    public int testXml(String cityCode){
+        int i = driverUserMapper.selectDriverUserCountByCityCode(cityCode);
         return i;
     }
 }
